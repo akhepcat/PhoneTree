@@ -1,14 +1,15 @@
-Schema fot the app.
-
-Data security model:
-	INTERNAL - used by the application, never exposed to a user or admin
-	ADMIN - data that can only be seen by an admin
-	PRIVATE - data exposed only to a user
-	SHARED - data exposed to a user and specified groups
-	PUBLIC - data that can be shared to any user
-	[..]   - for uuids, these are dereferenced to the name of the object
-
-
+# Schema for the app, using sqlite.  Limited data types, so... limited  validation?
+# 
+# What am I missing?
+# 
+# Data security model:
+# 	INTERNAL - used by the application, never exposed to a user or admin
+# 	ADMIN - data that can only be seen by an admin
+# 	PRIVATE - data exposed only to a user
+#	SHARED - data exposed to a user and specified groups
+#	PUBLIC - data that can be shared to any user
+#	[..]   - for uuids, these are dereferenced to the name of the object
+#
 
 
 # This is the users table, for authentication purposes, which is separate from the contacts
@@ -18,6 +19,16 @@ CREATE TABLE users (
     authid TEXT,		# INTERNAL: uuid reference to the primary authentication data
     privs TEXT,			# INTERNAL: uuid reference to the user's privileges 
     username TEXT,		# PRIVATE: the logged in users's name
+    email UUID			# [PRIVATE]: uuid reference to the user's email address
+);
+
+
+# This is the table of all registered and (hopefully) validated email addresses
+CREATE TABLE emails (
+    email TEXT PRIMARY KEY,	# INTERNAL: uuid of the email account
+    timestamp INTEGER,		# PRIVATE: creation or validation timestamp
+    address TEXT,		# PRIVATE: the logged-in users's registered email
+    verified INTEGER		# PRIVATE: has the user verified this email
 );
 
 
