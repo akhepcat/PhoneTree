@@ -7,18 +7,19 @@ if ($Common::DEBUG >0) {
 }
 
 use DBI;
-my $dbfile = $Common::dbfile;
-my $db = DBI->connect("dbi:SQLite:dbname=$dbfile","","", { RaiseError => 0, AutoCommit => 1 });
+my $db;
 my $errs = 0;
-
-if (! length($dbfile) ) {
-    die("Error: dbfile not defined or imported correctly\n");
-}
 
 Common::dprint("Starting database schema initialization\n");
 
 if ($Common::USE_SQLITE) {
     Common::dprint("Initializing SQLITE database\n");
+
+    if (! length($Common::sqlfile) ) {
+        die("Error: sqlfile not defined or imported correctly\n");
+    }
+
+    $db = DBI->connect("dbi:SQLite:dbname=$Common::sqlfile","","", { AutoCommit => 1, RaiseError => 0, PrintError => 0 });
 
     my $schema = "../schema/schema.sqlite";
     my $stanza;
@@ -46,6 +47,8 @@ if ($Common::USE_SQLITE) {
     }
 } else {
     Common::dprint("Initializing PGSQL database\n");
+
+    $db = DBI->connect("dbi:Pg:$Common::pgdb",$Common::pguser,$Common::pgpass, { AutoCommit => 1, RaiseError => 0, PrintError => 0 });
 
     my $schema = "../schema/schema.pgsql";
     my $stanza;
