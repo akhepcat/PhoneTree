@@ -21,7 +21,7 @@ if ($Common::USE_SQLITE) {
 
     $db = DBI->connect("dbi:SQLite:dbname=$Common::sqlfile","","", { AutoCommit => 1, RaiseError => 0, PrintError => 0 });
 
-    my $schema = "../schema/schema.sqlite";
+    my $schema = "../../schema/schema.sqlite";
     my $stanza;
     
     open(SCHEMA,"$schema") or die "can't import schemafile ($schema) for db initialization";
@@ -50,7 +50,7 @@ if ($Common::USE_SQLITE) {
 
     $db = DBI->connect("dbi:Pg:$Common::pgdb",$Common::pguser,$Common::pgpass, { AutoCommit => 1, RaiseError => 0, PrintError => 0 });
 
-    my $schema = "../schema/schema.pgsql";
+    my $schema = "../../schema/schema.pgsql";
     my $stanza;
 
     open(SCHEMA,"$schema") or die "can't import schemafile ($schema) for db initialization";
