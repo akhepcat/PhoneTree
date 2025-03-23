@@ -14,7 +14,6 @@ if ($Common::DEBUG >0) {
 }
 
 use DBI;
-my $dbfile = $Common::dbfile;
 my $db;
 
 sub check_init_db() {
@@ -41,10 +40,10 @@ sub check_init_db() {
     Common::dprint("leaving check_init_db\n");
 }
 
-if (! length($dbfile) ) {
-    die("Error: dbfile not defined or imported correctly from local.inc\n");
+if (! length($Common::sqlfile) ) {
+    die("Error: sqlfile not defined or imported correctly from Includes::Common.pm\n");
 }
-$db = DBI->connect("dbi:SQLite:dbname=$dbfile","","", { RaiseError => 1, AutoCommit => 1 });
+$db = DBI->connect("dbi:SQLite:dbname=" . $dbfile,"","", { RaiseError => 1, AutoCommit => 1 });
 check_init_db();
 
 exit($db->disconnect);
