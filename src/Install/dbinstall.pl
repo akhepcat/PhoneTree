@@ -1,5 +1,5 @@
 #!/usr/bin/perl -t
-use lib ".";
+use lib "..";
 use Includes::Common;
 
 if ($Common::DEBUG >0) {
