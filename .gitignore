@@ -1,0 +1,10 @@
+*~
+.*~
+*.o
+*.lo
+*.log
+*.la
+*.pc
+.deps
+*.a
+staging/*
