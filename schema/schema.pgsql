@@ -117,3 +117,11 @@ CREATE TABLE checkins (
     contact UUID,		-- [SHARED]: uuid reference to a person who is checking in
     timestamp TIMESTAMP		-- SHARED: time of check-in
 );
+
+
+-- This is the login table, where we log who's logged in
+CREATE TABLE logins (
+    userid UUID,		-- INTERNAL: uuid of the user
+    logints TIMESTAMP,		-- PRIVATE: timestamp of the user login
+    active INTEGER		-- PRIVATE: is the user currently active within timeout period?
+);
