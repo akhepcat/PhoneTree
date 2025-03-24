@@ -122,6 +122,7 @@ CREATE TABLE checkins (
 -- This is the login table, where we log who's logged in
 CREATE TABLE logins (
     userid UUID,		-- INTERNAL: uuid of the user
+    sessionid UUID,		-- INTERNAL: session id for this user's active login, also stored as a cookie
     logints TIMESTAMP,		-- PRIVATE: timestamp of the user login
     active INTEGER		-- PRIVATE: is the user currently active within timeout period?
 );
